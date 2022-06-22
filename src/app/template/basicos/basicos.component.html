@@ -3,14 +3,19 @@
 
 <div class="row">
     <div class="col">
-        <form>
+        <form (ngSubmit)="guardar(miFormulario)"
+            #miFormulario="ngForm"
+            autocomplete="off">
             <!-- CampoProducto -->
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Producto:</label>
                 <div class="col-sm-9">
                     <input type="text"
+                        ngModel
+                        name="producto"
                         class="form-control"
-                        placeholder="Nombre del producto">
+                        placeholder="Nombre del producto"
+                        required>
                     <span class="form-text text-danger">Debe de tener 3 letras</span>
                 </div>
             </div>
@@ -19,8 +24,11 @@
                 <label class="col-sm-3 col-form-label">Precio:</label>
                 <div class="col-sm-9">
                     <input type="number"
+                        ngModel
+                        name="precio"
                         class="form-control"
-                        placeholder="Precio del producto">
+                        placeholder="Precio del producto"
+                        required>
                 </div>
             </div>
             <!-- CampoExistencias -->
@@ -28,6 +36,8 @@
                 <label class="col-sm-3 col-form-label">Existencias:</label>
                 <div class="col-sm-9">
                     <input type="number"
+                        ngModel
+                        name="existencias"
                         class="form-control"
                         placeholder="Existencias del producto">
                 </div>
@@ -41,5 +51,19 @@
                 </div>
             </div>         
         </form>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+        <span>
+            Valid
+        </span>
+        <pre>{{ miFormulario.valid }}</pre>
+        <span>
+            Value
+        </span>
+        <pre>{{ miFormulario.value | json }}</pre>
     </div>
 </div>
