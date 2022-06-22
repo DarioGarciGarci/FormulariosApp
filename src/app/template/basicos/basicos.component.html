@@ -56,7 +56,10 @@
                         ngModel
                         name="existencias"
                         class="form-control"
-                        placeholder="Existencias del producto">
+                        customMin
+                        [minimo]="0"
+                        placeholder="Existencias del producto"
+                        required>
                 </div>
             </div>
             <!-- Boton -->
