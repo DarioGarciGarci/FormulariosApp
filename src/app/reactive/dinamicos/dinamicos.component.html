@@ -3,7 +3,8 @@
 
 <div class="row">
     <div class="col">
-        <form autocomplete="off">
+        <form autocomplete="off" 
+            [formGroup]="miFormulario">
             <!-- Nombre -->
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">
@@ -12,9 +13,10 @@
                 <div class="col-sm-9">
                     <input type="text" 
                         class="form-control" 
-                        placeholder="Nombre de la persona">
+                        placeholder="Nombre de la persona"
+                        formControlName="nombre">
                     <span class="form-text text-danger"
-                    >
+                        *ngIf="campoNoEsValido('nombre')">
                         Este campo es obligatorio
                     </span>
                 </div>
@@ -27,22 +29,22 @@
                 </label>
                 <div class="col-sm-9">
                     
-                    <div class="input-group mb-3">
+                    <div class="input-group">
                         <input type="text" 
                         class="form-control" 
                         placeholder="Agregar juego favorito"
-                        (keyup.enter)="true">
+                        [formControl]="nuevoFavorito"
+                        (keyup.enter)="agregarFavorito()">
                         <div class="input-group-append">
                           <button class="btn btn-outline-primary" 
                             type="button" 
                             id="button-addon2"
-                            (click)="true">Agregar</button>
+                            (click)="agregarFavorito()">Agregar</button>
                         </div>
                     </div>
-
-                    <span class="form-text text-danger">
+                    <!-- <span class="form-text text-danger">
                         Este campo es obligatorio
-                    </span>
+                    </span> -->
                 </div>
             </div>
 
@@ -51,30 +53,32 @@
                 <label class="col-sm-3 col-form-label">
                     Favoritos:
                 </label>
-                <div class="col-sm-9">
-                    <!-- <div class="input-group mb-3"
-                    *ngFor="let favorito of persona.favoritos; let i = index">
+                <div class="col-sm-9" formArrayName="favoritos">
+                    <div class="input-group mb-3"
+                    *ngFor="let favorito of favoritosArr.controls; let i = index">
                         <input type="text" 
-                            class="form-control mb-1">
+                            class="form-control mb-1"
+                            [formControlName]="i">
                             <div class="input-group-append">
                                 <button type="button"
                                     class="btn btn-outline-danger"
-                                    (click)="true">Quitar</button>
+                                    (click)="borrar(i)">Quitar</button>
                             </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
 
             <!-- Boton -->
-           <div class="row">
-               <div class="col">
-                   <button type="button"
-                       class="btn btn-primary float-end"
-                       (click)="true">
-                       Guardar
-                   </button>
-               </div>
-           </div>
+            <div class="row">
+                <div class="col">
+                    <button type="button"
+                        class="btn btn-primary float-end"
+                        (click)="guardar()">
+                        <!-- [disabled]="miFormulario.invalid" -->
+                        Guardar
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
@@ -86,3 +90,37 @@
 <pre>
     {{ persona | json }}
 </pre> -->
+
+
+<div class="row">
+    <div class="col">
+
+        <span>
+            Valid
+        </span>
+        <pre>{{ miFormulario.valid }}</pre>
+<!-- 
+        <span>
+            Pristine
+        </span>
+        <pre>{{ miFormulario.pristine }}</pre>
+
+        <span>
+            Touched
+        </span>
+        <pre>{{ miFormulario.touched }}</pre> -->
+
+        <span>
+            Value
+        </span>
+        <pre>{{ miFormulario.value | json }}</pre>
+
+        <span>
+            Nuevo favorito
+        </span>
+        <pre>{{ nuevoFavorito.valid }}</pre>
+        <br>
+        <pre>{{ nuevoFavorito.value | json }}</pre>
+
+    </div>
+</div>
